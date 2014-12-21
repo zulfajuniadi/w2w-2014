@@ -1,0 +1,13 @@
+<div class="row-fluid">
+    <div class="col-md-12">
+        <h1 class="page-header">
+            Checkout
+        </h1>
+        <div class="text-center">
+            <h1 class="alert alert-info">Total : {{total | currency:'RM ':2}}</h1>
+            <h1 class="alert alert-success">Tendered : {{tendered | currency:'RM ':2}}</h1>
+            <h1 class="alert alert-danger">Change: {{tendered - total | currency:'RM ':2}}</h1>
+            <a class="btn btn-success btn-block btn-lg" href="#/"><h1>Done</h1></a>
+        </div>
+    </div>
+</div>

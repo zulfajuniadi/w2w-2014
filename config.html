@@ -1,0 +1,41 @@
+<div class="row-fluid">
+    <div class="col-md-12">
+        <h1 class="page-header">
+            <a href="#/" class="btn btn-primary pull-right">
+                <i class="glyphicon glyphicon-cog"></i>
+            </a>
+            Config
+        </h1>
+    </div>
+    <div class="col-md-4">
+        <p class="lead">Item Categories</p>
+        <ul class="list-group">
+            <li class="list-group-item">
+                <a href="#/Config">All</a>
+            </li>
+            <li class="list-group-item" ng-repeat="itemCategory in itemCategories">
+                <button class="btn btn-danger mr8px" ng-show="hasNoChild(itemCategory)" ng-click="removeCategory(itemCategory)">&times;</button>
+                <a href="#/Config/{{itemCategory}}">{{itemCategory}}</a>
+            </li>
+            <li class="list-group-item" ng-show="!itemCategories.length">No categories found! Create some below</li>
+            <li class="list-group-item">
+                <input type="text" class="form-control" placeholder="New Category" ng-model="newCategory" ng-keypress="createCategory($event)">
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-8">
+        <p class="lead">{{activeCategory}} Items</p>
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="item in items | filter:itemsFilter">
+                <button class="btn btn-danger mr8px" ng-click="removeItem(item.name)">&times;</button>
+                {{item.name}} ({{item.price | currency:'RM ':2}})
+            </li>
+            <li class="list-group-item" ng-show="!items.length && activeCategory != 'All'">No items found! Create some below</li>
+            <li class="list-group-item" ng-show="activeCategory != 'All'">
+                <input class="form-control" type="text" placeholder="New Item" ng-model="newItemName" ng-keypress="createItem($event)">
+                <input class="form-control mt8px" type="text" ng-model="newItemPrice" ng-keypress="createItem($event)">
+            </li>
+        </ul>
+    </div>
+</div>
+

@@ -1,0 +1,54 @@
+<div class="row-fluid">
+    <div class="col-md-12">
+        <h1 class="page-header">
+            <a href="#/Config" class="btn btn-default pull-right">
+                <i class="glyphicon glyphicon-cog"></i>
+            </a>
+            Cash Register
+        </h1>
+    </div>
+
+    <div class="col-md-8">
+        <ul class="nav nav-pills">
+            <li ng-class="{active: isActive('/Item/{{itemCategory}}')}" ng-repeat="itemCategory in itemCategories">
+                <a href="#/Item/{{itemCategory}}">{{itemCategory}}</a>
+            </li>
+            <li ng-class="{active: isActive('/Item/Selected')}">
+                <a href="#/Item/Selected">Selected</a>
+            </li>
+        </ul>
+        <ul class="list-unstyled mt8px">
+            <li ng-repeat="itemCategory in itemCategories">
+                <ul class="list-group" ng-show="activeCategory == itemCategory">
+                    <li class="list-group-item" ng-repeat="item in items | filter:itemCategory">
+                        <button class="btn btn-success" ng-click="incrClickCount(item.name)">&plus;</button><div class="click-count">{{clickedCount(item.name)}}</div><button class="btn btn-danger mr8px" ng-click="decrClickCount(item.name)">&minus;</button> {{item.name}}
+                    </li>
+                </ul>
+            </li>
+            <li ng-show="activeCategory == 'Selected'">
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="item in selectedItems()">
+                        <button class="btn btn-success" ng-click="incrClickCount(item.name)">&plus;</button><div class="click-count">{{clickedCount(item.name)}}</div><button class="btn btn-danger mr8px" ng-click="decrClickCount(item.name)">&minus;</button> {{item.name}}
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-4 text-center">
+        <p class="lead">
+            Total: {{totalCurrentSale() | currency:'RM ':2}}
+        </p>
+        <ul class="list-group" ng-show="totalCurrentSale()">
+            <li class="list-group-item lead">Customer pays</li>
+            <li class="list-group-item" ng-repeat="denomination in denominations() track by $index">
+                <a class="btn btn-primary btn-block btn-lg" href="#/Checkout/{{totalCurrentSale()}}/{{denomination}}">{{denomination | currency:'RM ':2}}</a>
+            </li>
+            <li class="list-group-item">
+                <input class="form-control" type="text" placeholder="Other Denominations" ng-model="otherDenominations" ng-keypress="setOtherDenominations($event)">
+            </li>
+        </ul>
+        <ul class="list-group" ng-show="!totalCurrentSale()">
+            <li class="list-group-item">Add some items first</li>
+        </ul>
+    </div>
+</div>
